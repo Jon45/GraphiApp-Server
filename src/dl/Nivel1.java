@@ -10,7 +10,10 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name="`Nivel1`")
-@NamedQuery(name="Nivel1.findAll", query="SELECT n FROM Nivel1 n")
+@NamedQueries({
+@NamedQuery(name="Nivel1.findAll", query="SELECT n FROM Nivel1 n"),
+@NamedQuery(name="Nivel1.findClaseFecha", query="SELECT n FROM Nivel1 n WHERE n.clase.fecha= :fecha")
+})
 public class Nivel1 implements Serializable {
 	private static final long serialVersionUID = 1L;
 

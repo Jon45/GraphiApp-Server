@@ -10,7 +10,10 @@ import java.util.List;
  * 
  */
 @Entity
-@NamedQuery(name="Clase.findAll", query="SELECT c FROM Clase c")
+@NamedQueries ({
+@NamedQuery(name="Clase.findAll", query="SELECT c FROM Clase c"),
+@NamedQuery(name="Clase.findFecha", query="SELECT c.idClase FROM Clase c WHERE c.fecha= :fecha")
+})
 public class Clase implements Serializable {
 	private static final long serialVersionUID = 1L;
 
