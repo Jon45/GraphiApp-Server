@@ -22,6 +22,10 @@ public class Nivel1JSON {
     @XmlElement
 	private Clase clase;
     
+    public Nivel1JSON() {
+		super();
+	}
+    
     public Nivel1JSON(int idNivel1, int correcta, String palabra1, String palabra2, Clase clase) {
 		super();
 		this.idNivel1 = idNivel1;
