@@ -9,7 +9,10 @@ import javax.persistence.*;
  * 
  */
 @Entity
-@NamedQuery(name="Resultado.findAll", query="SELECT r FROM Resultado r")
+@NamedQueries({
+@NamedQuery(name="Resultado.findAll", query="SELECT r FROM Resultado r"),
+@NamedQuery(name="Resultado.findByAlumnoFecha", query="SELECT r FROM Resultado r WHERE r.fecha= :fecha AND r.alumno= :alumno")
+})
 public class Resultado implements Serializable {
 	private static final long serialVersionUID = 1L;
 
