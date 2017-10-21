@@ -83,4 +83,39 @@ public class LogicREST {
 		
 		return niveles1JSON;
 	}
+	
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/getNivel2")	
+	public Niveles2JSON getNivel2(@QueryParam("nickname") String nickname, @DefaultValue("-1") @QueryParam("pin") int pin ) {
+		System.out.println("getNivel1: "+hsr.getRemoteAddr());
+		
+		Niveles2JSON niveles2JSON=null;
+		Alumno alumno = (Alumno) em.createNamedQuery("Alumno.findNick").setParameter("nickname", nickname).getSingleResult(); // Qué hacer si no existe usuario?
+		if (alumno != null)
+		{
+			niveles2JSON=new Niveles2JSON();
+			List<Nivel2JSON> Nivel2JSONList=new ArrayList<Nivel2JSON>();
+			List<Nivel2> Nivel2List = null;
+			
+			if (pin!=-1)
+			{
+				Nivel2List = (List <Nivel2>)em.createNamedQuery("Nivel2.findClaseFecha",Nivel2.class).setParameter("fecha", pin).getResultList(); //Es necesario mínimo o máximo de preguntas?
+			}
+			else
+			{
+				Nivel2List = (List <Nivel2>)em.createNamedQuery("Nivel2.findAll",Nivel2.class).getResultList();
+				Collections.shuffle(Nivel2List);
+				Nivel2List = Nivel2List.subList(0, 9);
+			}
+				for(int i=0;i<Nivel2List.size();i++) {
+				Nivel2 n=Nivel2List.get(i);
+				Nivel2JSON lJSON=new Nivel2JSON(n.getIdNivel2(),n.getAudio(),n.getPalabra(),n.getTildada(),n.getClase());
+				Nivel2JSONList.add(lJSON);
+			}
+				niveles2JSON.setListaNivel2JSON(Nivel2JSONList);	
+		}
+		
+		return niveles2JSON;
+	}
 }
