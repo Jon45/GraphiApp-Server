@@ -22,6 +22,10 @@ public class Nivel2JSON {
 	@XmlElement
 	private Clase clase;
 	
+	public Nivel2JSON() {
+		super();
+	}
+	
 	public Nivel2JSON(int idNivel2, String audio, String palabra, int tildada, Clase clase) {
 		super();
 		this.idNivel2 = idNivel2;

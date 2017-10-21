@@ -10,6 +10,15 @@ public class Niveles2JSON {
 	@XmlElement
 	List <Nivel2JSON> listaNivel2JSON;
 
+	public Niveles2JSON() {
+		super();
+	}
+	
+	public Niveles2JSON(List<Nivel2JSON> nivel2jsonList) {
+		super();
+		this.listaNivel2JSON = nivel2jsonList;
+	}
+
 	public List<Nivel2JSON> getListaNivel2JSON() {
 		return listaNivel2JSON;
 	}
