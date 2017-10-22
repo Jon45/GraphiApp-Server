@@ -7,8 +7,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public class Niveles2JSON {
-	@XmlElement
-	List <Nivel2JSON> listaNivel2JSON;
+	@XmlElement(name="nivel2")
+	private List <Nivel2JSON> listaNivel2JSON;
 
 	public Niveles2JSON() {
 		super();

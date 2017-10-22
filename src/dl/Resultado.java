@@ -20,25 +20,18 @@ public class Resultado implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int idResultado;
 
-	@Column(name="Fecha")
 	private int fecha;
 
-	@Column(name="PuntosNivel1")
 	private float puntosNivel1;
 
-	@Column(name="PuntosNivel2")
 	private float puntosNivel2;
 
-	@Column(name="PuntosNivel3")
 	private float puntosNivel3;
 
-	@Column(name="PuntosNivel4")
 	private float puntosNivel4;
 
-	@Column(name="PuntosNivel5")
 	private float puntosNivel5;
 
-	@Column(name="PuntosNivel8")
 	private float puntosNivel8;
 
 	//bi-directional many-to-one association to Alumno

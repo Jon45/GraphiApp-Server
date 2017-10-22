@@ -20,13 +20,10 @@ public class Nivel2 implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int idNivel2;
 
-	@Column(name="Audio")
 	private String audio;
 
-	@Column(name="Palabra")
 	private String palabra;
 
-	@Column(name="Tildada")
 	private int tildada;
 
 	//bi-directional many-to-one association to Clase
