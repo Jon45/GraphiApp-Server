@@ -136,9 +136,9 @@ public class LogicREST {
 			{
 				em.remove(resultadoItem);
 			}
-			
+		}	
 			em.persist(resultado);
-		}
+		
 		return Response.ok().entity("Resultados actualizados correctamente").build();
 	}
 }
