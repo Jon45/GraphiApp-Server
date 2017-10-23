@@ -65,7 +65,7 @@ public class LogicREST {
 		
 		//Generate login
 		String loginPref = alumnoJSON.getNombre().substring(0, 1).toLowerCase()+alumnoJSON.getApellidos().substring(0, 1).toLowerCase();
-		List<Alumno> lista= (List <Alumno>)em.createNamedQuery("Alumno.findLogin",Alumno.class).setParameter("nickname",loginPref+"%");
+		List<Alumno> lista= (List <Alumno>)em.createNamedQuery("Alumno.findLogin",Alumno.class).setParameter("nickname",loginPref+"%").getResultList();
 		if(lista.size()>= 10){
 			loginPref = loginPref + "0" + lista.size();
 			alumnoJSON.setNickname(loginPref);
@@ -134,7 +134,7 @@ public class LogicREST {
 		if(docente != null){
 			
 			List<ResultadoJSON> listaResultadoJSON = new ArrayList<ResultadoJSON>();
-			List<Resultado> listaResultados = (List<Resultado>)em.createNamedQuery("Resultado.findByFecha").setParameter("fecha", fecha).getResultList();
+			List<Resultado> listaResultados = (List<Resultado>)em.createNamedQuery("Resultado.findByFecha",Resultado.class).setParameter("fecha", fecha).getResultList();
 			
 			for(int i = 0; i<listaResultados.size(); i++){
 				Resultado r = listaResultados.get(i);
