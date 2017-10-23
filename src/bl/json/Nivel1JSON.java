@@ -3,8 +3,6 @@ package bl.json;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import dl.Clase;
-
 @XmlRootElement
 public class Nivel1JSON {
     @XmlElement
