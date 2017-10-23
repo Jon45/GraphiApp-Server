@@ -92,20 +92,18 @@ public class LogicREST {
 		Response response = null;
 		return response;
 	}
-	@SuppressWarnings("unchecked")
+
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)	
 	@Path("/postNivel1")
-	public Response postNivel1(Nivel1JSON nivel1JSON, String login, int fecha){
+	public Response postNivel1(Nivel1JSON nivel1JSON){
 		
 		System.out.println("addStudent: "+hsr.getRemoteAddr());
 		Response response = null;
-		
+		String login = nivel1JSON.getClase().getDocente().getNickname();
 		Docente docente = (Docente)em.createNamedQuery("Docente.findNickname").setParameter("nickname", login).getSingleResult();
 		if(docente != null){
-			
-			//seguramente habrá algo aquí, pero no acabo de entender qué se hace en el método de referencia
 			em.persist(nivel1JSON);
 			response = Response.ok().entity("Ejercicio subido correctamente").build();
 		}
