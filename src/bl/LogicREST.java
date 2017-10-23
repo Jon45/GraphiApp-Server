@@ -156,8 +156,8 @@ public class LogicREST {
 		System.out.println("getNivel1: "+hsr.getRemoteAddr());
 		
 		Niveles1JSON niveles1JSON=null;
-		Alumno alumno = (Alumno) em.createNamedQuery("Alumno.findNick").setParameter("nickname", nickname).getSingleResult(); // Qué hacer si no existe usuario?
-		if (alumno != null)
+		List <Alumno> alumnos = (List<Alumno>) em.createNamedQuery("Alumno.findNick",Alumno.class).setParameter("nickname", nickname).getResultList(); // Qué hacer si no existe usuario?
+		if (alumnos.size() == 1)
 		{
 			niveles1JSON=new Niveles1JSON();
 			List<Nivel1JSON> Nivel1JSONList=new ArrayList<Nivel1JSON>();
@@ -175,7 +175,7 @@ public class LogicREST {
 			}
 				for(int i=0;i<Nivel1List.size();i++) {
 				Nivel1 n=Nivel1List.get(i);
-				Nivel1JSON lJSON=new Nivel1JSON(n.getIdNivel1(),n.getCorrecta(),n.getPalabra1(),n.getPalabra2(),n.getClase());
+				Nivel1JSON lJSON=new Nivel1JSON(n.getIdNivel1(),n.getCorrecta(),n.getPalabra1(),n.getPalabra2());
 				Nivel1JSONList.add(lJSON);
 			}
 				niveles1JSON.setListaNivel1JSON(Nivel1JSONList);	
@@ -191,8 +191,8 @@ public class LogicREST {
 		System.out.println("getNivel2: "+hsr.getRemoteAddr());
 		
 		Niveles2JSON niveles2JSON=null;
-		Alumno alumno = (Alumno) em.createNamedQuery("Alumno.findNick").setParameter("nickname", nickname).getSingleResult(); // Qué hacer si no existe usuario?
-		if (alumno != null)
+		List<Alumno> alumnos = (List<Alumno>) em.createNamedQuery("Alumno.findNick",Alumno.class).setParameter("nickname", nickname).getResultList(); // Qué hacer si no existe usuario?
+		if (alumnos.size() == 1)
 		{
 			niveles2JSON=new Niveles2JSON();
 			List<Nivel2JSON> Nivel2JSONList=new ArrayList<Nivel2JSON>();
@@ -210,7 +210,7 @@ public class LogicREST {
 			}
 				for(int i=0;i<Nivel2List.size();i++) {
 				Nivel2 n=Nivel2List.get(i);
-				Nivel2JSON lJSON=new Nivel2JSON(n.getIdNivel2(),n.getAudio(),n.getPalabra(),n.getTildada(),n.getClase());
+				Nivel2JSON lJSON=new Nivel2JSON(n.getIdNivel2(),n.getAudio(),n.getPalabra(),n.getTildada());
 				Nivel2JSONList.add(lJSON);
 			}
 				niveles2JSON.setListaNivel2JSON(Nivel2JSONList);	
