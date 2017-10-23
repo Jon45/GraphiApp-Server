@@ -113,12 +113,12 @@ public class LogicREST {
 		return response;
 		
 	}
-	@SuppressWarnings("unchecked")
+
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)	
 	@Path("/postNivel2")
-	public Response postNivel2(Nivel2JSON nivel2JSON, String login, int fecha){
+	public Response postNivel2(Nivel2JSON nivel2JSON){
 		
 		//TO-DO. Añadir servicio para subir audio que devuelva URL y poder usarlo aquí
 		return Response.ok().entity("Ejercicio subido correctamente").build();
