@@ -10,7 +10,9 @@ import java.util.List;
  * 
  */
 @Entity
-@NamedQuery(name="Docente.findAll", query="SELECT d FROM Docente d")
+@NamedQueries({
+@NamedQuery(name="Docente.findAll", query="SELECT d FROM Docente d"),
+@NamedQuery(name="Docente.findNickname", query="SELECT d FROM Docente d WHERE d.nickname = :nickname")})
 public class Docente implements Serializable {
 	private static final long serialVersionUID = 1L;
 
