@@ -60,7 +60,7 @@ public class LogicREST {
 	@Produces(MediaType.TEXT_PLAIN)	
 	@Path("/registerUser")
 	public Response registerUser(AlumnoJSON alumnoJSON){
-		System.out.println("addStudent: "+hsr.getRemoteAddr());
+		System.out.println("registerUser: "+hsr.getRemoteAddr());
 		Response response = null;
 		
 		
@@ -88,7 +88,7 @@ public class LogicREST {
 	@Produces(MediaType.TEXT_PLAIN)	
 	@Path("/loginUser")
 	public Response loginUser(@QueryParam("nickname") String login, @QueryParam("password") String password ){
-		System.out.println("addStudent: "+hsr.getRemoteAddr());
+		System.out.println("loginUser: "+hsr.getRemoteAddr());
 		Response response = null;
 		return response;
 	}
@@ -99,7 +99,7 @@ public class LogicREST {
 	@Path("/postNivel1")
 	public Response postNivel1(Nivel1JSON nivel1JSON){
 		
-		System.out.println("addStudent: "+hsr.getRemoteAddr());
+		System.out.println("postNivel1: "+hsr.getRemoteAddr());
 		Response response = null;
 		String login = nivel1JSON.getClase().getDocente().getNickname();
 		Docente docente = (Docente)em.createNamedQuery("Docente.findNickname").setParameter("nickname", login).getSingleResult();
@@ -130,7 +130,7 @@ public class LogicREST {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/getResults")
 	public ResultadosJSON getResults(@QueryParam("nickname") String nickname, @QueryParam("fecha") int fecha){
-		System.out.println("requestCalification: "+hsr.getRemoteAddr());
+		System.out.println("getResults: "+hsr.getRemoteAddr());
 		ResultadosJSON resultadosJSON = new ResultadosJSON();
 		
 		Docente docente = (Docente)em.createNamedQuery("Docente.findNickname").setParameter("nickname", nickname).getSingleResult();
@@ -191,7 +191,7 @@ public class LogicREST {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/getNivel2")	
 	public Niveles2JSON getNivel2(@QueryParam("nickname") String nickname, @DefaultValue("-1") @QueryParam("pin") int pin ) {
-		System.out.println("getNivel1: "+hsr.getRemoteAddr());
+		System.out.println("getNivel2: "+hsr.getRemoteAddr());
 		
 		Niveles2JSON niveles2JSON=null;
 		Alumno alumno = (Alumno) em.createNamedQuery("Alumno.findNick").setParameter("nickname", nickname).getSingleResult(); // Qué hacer si no existe usuario?
@@ -228,6 +228,8 @@ public class LogicREST {
 	@Path("/postResult")
 	public Response postResult(Resultado resultado)
 	{
+		System.out.println("postResult: "+hsr.getRemoteAddr());
+		
 		resultado.getAlumno();
 		List <Resultado> resultadoDB = em.createNamedQuery("Resultado.findByAlumnoFecha",Resultado.class).setParameter("alumno", resultado.getAlumno()).setParameter("fecha", resultado.getFecha()).getResultList();
 		if (resultadoDB.size()!=0)
