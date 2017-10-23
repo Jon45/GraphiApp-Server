@@ -153,10 +153,6 @@ public class LogicREST {
 		return resultadosJSON;
 
 		}	
-			em.persist(resultado);
-		
-		return Response.ok().entity("Resultados actualizados correctamente").build();
-	}
 	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
@@ -247,8 +243,5 @@ public class LogicREST {
 		
 		return Response.ok().entity("Resultados actualizados correctamente").build();
         }
-	
-	
-	
 	
 }
