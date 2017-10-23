@@ -3,8 +3,6 @@ package bl.json;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import dl.Clase;
-
 @XmlRootElement
 public class Nivel2JSON {
 	@XmlElement
@@ -18,21 +16,17 @@ public class Nivel2JSON {
 
 	@XmlElement
 	private int tildada;
-
-	@XmlElement
-	private Clase clase;
 	
 	public Nivel2JSON() {
 		super();
 	}
 	
-	public Nivel2JSON(int idNivel2, String audio, String palabra, int tildada, Clase clase) {
+	public Nivel2JSON(int idNivel2, String audio, String palabra, int tildada) {
 		super();
 		this.idNivel2 = idNivel2;
 		this.audio = audio;
 		this.palabra = palabra;
 		this.tildada = tildada;
-		this.clase = clase;
 	}
 
 	public int getIdNivel2() {
@@ -65,14 +59,6 @@ public class Nivel2JSON {
 
 	public void setTildada(int tildada) {
 		this.tildada = tildada;
-	}
-
-	public Clase getClase() {
-		return clase;
-	}
-
-	public void setClase(Clase clase) {
-		this.clase = clase;
 	}
 
 }
