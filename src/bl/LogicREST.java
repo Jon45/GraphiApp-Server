@@ -65,7 +65,7 @@ public class LogicREST {
 		
 		//Generate login
 		String loginPref = alumnoJSON.getNombre().substring(0, 1).toLowerCase()+alumnoJSON.getApellidos().substring(0, 1).toLowerCase();
-		List<Alumno> lista= (List <Alumno>)em.createNamedQuery("Alumno.findLogin").setParameter("nickname",loginPref+"%");
+		List<Alumno> lista= (List <Alumno>)em.createNamedQuery("Alumno.findLogin",Alumno.class).setParameter("nickname",loginPref+"%");
 		if(lista.size()>= 10){
 			loginPref = loginPref + "0" + lista.size();
 			alumnoJSON.setNickname(loginPref);
