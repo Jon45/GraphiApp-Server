@@ -2,7 +2,6 @@ package dl;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.util.List;
 
 
 /**
@@ -22,21 +21,13 @@ public class Alumno implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int idAlumno;
 
-	@Column(name="Apellidos")
 	private String apellidos;
 
-	@Column(name="Nickname")
 	private String nickname;
 
-	@Column(name="Nombre")
 	private String nombre;
 
-	@Column(name="Password")
 	private String password;
-
-	//bi-directional many-to-one association to Resultado
-	@OneToMany(mappedBy="alumno")
-	private List<Resultado> resultados;
 
 	public Alumno() {
 	}
@@ -79,28 +70,6 @@ public class Alumno implements Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	public List<Resultado> getResultados() {
-		return this.resultados;
-	}
-
-	public void setResultados(List<Resultado> resultados) {
-		this.resultados = resultados;
-	}
-
-	public Resultado addResultado(Resultado resultado) {
-		getResultados().add(resultado);
-		resultado.setAlumno(this);
-
-		return resultado;
-	}
-
-	public Resultado removeResultado(Resultado resultado) {
-		getResultados().remove(resultado);
-		resultado.setAlumno(null);
-
-		return resultado;
 	}
 
 }

@@ -9,7 +9,6 @@ import javax.persistence.*;
  * 
  */
 @Entity
-@Table(name="`Nivel1`")
 @NamedQueries({
 @NamedQuery(name="Nivel1.findAll", query="SELECT n FROM Nivel1 n"),
 @NamedQuery(name="Nivel1.findClaseFecha", query="SELECT n FROM Nivel1 n WHERE n.clase.fecha= :fecha")
@@ -21,13 +20,10 @@ public class Nivel1 implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int idNivel1;
 
-	@Column(name="Correcta")
 	private int correcta;
 
-	@Column(name="Palabra1")
 	private String palabra1;
 
-	@Column(name="Palabra2")
 	private String palabra2;
 
 	//bi-directional many-to-one association to Clase
