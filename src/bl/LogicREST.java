@@ -54,7 +54,6 @@ public class LogicREST {
 		return httpResponse;		
 	}
 	
-	@SuppressWarnings("unchecked")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)	
@@ -83,7 +82,6 @@ public class LogicREST {
 		return response;
 	}
 	
-	@SuppressWarnings("unchecked")
 	@GET
 	@Produces(MediaType.TEXT_PLAIN)	
 	@Path("/loginUser")
@@ -125,7 +123,6 @@ public class LogicREST {
 		
 	}
 	
-	@SuppressWarnings("unchecked")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/getResults")
