@@ -38,8 +38,8 @@ public class LogicREST {
 		System.out.println("getNivel1: "+hsr.getRemoteAddr());
 		
 		Niveles1JSON niveles1JSON=null;
-		Alumno alumno = (Alumno) em.createNamedQuery("Alumno.findNick").setParameter("nickname", nickname).getSingleResult(); // Qué hacer si no existe usuario?
-		if (alumno != null)
+		List <Alumno> alumnos = (List<Alumno>) em.createNamedQuery("Alumno.findNick",Alumno.class).setParameter("nickname", nickname).getResultList(); // Qué hacer si no existe usuario?
+		if (alumnos.size() == 1)
 		{
 			niveles1JSON=new Niveles1JSON();
 			List<Nivel1JSON> Nivel1JSONList=new ArrayList<Nivel1JSON>();
@@ -73,8 +73,8 @@ public class LogicREST {
 		System.out.println("getNivel1: "+hsr.getRemoteAddr());
 		
 		Niveles2JSON niveles2JSON=null;
-		Alumno alumno = (Alumno) em.createNamedQuery("Alumno.findNick").setParameter("nickname", nickname).getSingleResult(); // Qué hacer si no existe usuario?
-		if (alumno != null)
+		List<Alumno> alumnos = (List<Alumno>) em.createNamedQuery("Alumno.findNick",Alumno.class).setParameter("nickname", nickname).getResultList(); // Qué hacer si no existe usuario?
+		if (alumnos.size() == 1)
 		{
 			niveles2JSON=new Niveles2JSON();
 			List<Nivel2JSON> Nivel2JSONList=new ArrayList<Nivel2JSON>();
