@@ -112,7 +112,7 @@ public class LogicREST {
 		System.out.println("postNivel1: "+hsr.getRemoteAddr());
 		Response response = null;
 		String login = postNivel1JSON.getLogin();
-		Docente docente = (Docente)em.createNamedQuery("Docente.findNickname").setParameter("nickname", login).getSingleResult();
+		List<Docente> docente = em.createNamedQuery("Docente.findNickname",Docente.class).setParameter("nickname", login).getResultList();
 		if(docente != null){
 			
 			List<Clase> clase = em.createNamedQuery("Clase.findId", Clase.class).setParameter("id", postNivel1JSON.getNivel1JSON().getClase()).getResultList();
