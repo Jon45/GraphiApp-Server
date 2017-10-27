@@ -10,15 +10,25 @@ public class PostNivel2JSON {
 	
 	@XmlElement
 	private String login;
+	
+	@XmlElement
+	private String url;
 
 	
 	public PostNivel2JSON(){
 		
 	}
-	public PostNivel2JSON(Nivel2JSON nivel2json, String login) {
+	public PostNivel2JSON(Nivel2JSON nivel2json, String login, String url) {
 		super();
 		nivel2JSON = nivel2json;
 		this.login = login;
+		this.url = url;
+	}
+	public String getUrl() {
+		return url;
+	}
+	public void setUrl(String url) {
+		this.url = url;
 	}
 	public Nivel2JSON getNivel2JSON() {
 		return nivel2JSON;
