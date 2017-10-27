@@ -11,6 +11,7 @@ import javax.persistence.*;
 @Entity
 @NamedQueries ({
 @NamedQuery(name="Clase.findAll", query="SELECT c FROM Clase c"),
+@NamedQuery(name="Clase.findId", query="SELECT c FROM Clase c WHERE c.idClase= :idClase"),
 @NamedQuery(name="Clase.findFecha", query="SELECT c.idClase FROM Clase c WHERE c.fecha= :fecha")
 })
 public class Clase implements Serializable {

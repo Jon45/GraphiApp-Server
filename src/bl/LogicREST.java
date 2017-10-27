@@ -223,22 +223,45 @@ public class LogicREST {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)	
 	@Path("/postResult")
-	public Response postResult(Resultado resultado)
+	public Response postResult(ResultadoJSON resultado)
 	{
 		System.out.println("postResult: "+hsr.getRemoteAddr());
 		
-		resultado.getAlumno();
-		List <Resultado> resultadoDB = em.createNamedQuery("Resultado.findByAlumnoFecha",Resultado.class).setParameter("alumno", resultado.getAlumno()).setParameter("fecha", resultado.getFecha()).getResultList();
-		if (resultadoDB.size()!=0)
-		{
-			for (Resultado resultadoItem : resultadoDB)
-			{
-				em.remove(resultadoItem);
-			}
-		}	
-			em.persist(resultado);
+		Resultado nuevoResultado = new Resultado();
 		
-		return Response.ok().entity("Resultados actualizados correctamente").build();
+		List <Alumno> alumnoDB = em.createNamedQuery("Alumno.findId",Alumno.class).setParameter("idAlumno", resultado.getAlumno()).getResultList();
+		if (alumnoDB.size()==1)
+		{
+			Alumno alumnoBean = alumnoDB.get(0);
+			List <Clase> claseDB = em.createNamedQuery("Clase.findId",Clase.class).setParameter("idClase", resultado.getClase()).getResultList();
+			if (claseDB.size()==1)
+			{
+				Clase claseBean = claseDB.get(0);
+				
+				nuevoResultado.setAlumno(alumnoBean);
+				nuevoResultado.setClase(claseBean);
+				nuevoResultado.setFecha(resultado.getFecha());
+				nuevoResultado.setPuntosNivel1(resultado.getPuntosNivel1());
+				nuevoResultado.setPuntosNivel2(resultado.getPuntosNivel2());
+				nuevoResultado.setPuntosNivel3(resultado.getPuntosNivel3());
+				nuevoResultado.setPuntosNivel4(resultado.getPuntosNivel4());
+				nuevoResultado.setPuntosNivel5(resultado.getPuntosNivel5());
+				nuevoResultado.setPuntosNivel8(resultado.getPuntosNivel8());
+				
+				List <Resultado> resultadoDB = em.createNamedQuery("Resultado.findByAlumnoFecha",Resultado.class).setParameter("alumno", resultado.getAlumno()).setParameter("fecha", resultado.getFecha()).getResultList();
+				if (resultadoDB.size()!=0)
+				{
+					nuevoResultado.setIdResultado(resultadoDB.get(0).getIdResultado());
+				}	
+				
+				em.merge(nuevoResultado);
+				
+				return Response.ok().entity("Resultados actualizados correctamente").build();
+			}
+		}
+		
+		return Response.serverError().entity("Error al actualizar los resultados").build();
+
         }
 	
 }

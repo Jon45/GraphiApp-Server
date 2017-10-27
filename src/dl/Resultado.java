@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Entity
 @NamedQueries({
 @NamedQuery(name="Resultado.findAll", query="SELECT r FROM Resultado r"),
-@NamedQuery(name="Resultado.findByAlumnoFecha", query="SELECT r FROM Resultado r WHERE r.fecha= :fecha AND r.alumno= :alumno"),
+@NamedQuery(name="Resultado.findByAlumnoFecha", query="SELECT r FROM Resultado r WHERE r.fecha= :fecha AND r.alumno.idAlumno= :alumno"),
 @NamedQuery(name="Resultado.findByFecha", query="SELECT r FROM Resultado r WHERE r.fecha= :fecha")
 })
 public class Resultado implements Serializable {
