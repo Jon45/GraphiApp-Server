@@ -95,14 +95,23 @@ public class LogicREST {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)	
 	@Path("/postNivel1")
-	public Response postNivel1(Nivel1JSON nivel1JSON){
+	public Response postNivel1(PostNivel1JSON postNivel1JSON){
 		
 		System.out.println("postNivel1: "+hsr.getRemoteAddr());
 		Response response = null;
-		String login = nivel1JSON.getClase().getDocente().getNickname();
+		String login = postNivel1JSON.getLogin();
 		Docente docente = (Docente)em.createNamedQuery("Docente.findNickname").setParameter("nickname", login).getSingleResult();
 		if(docente != null){
-			em.persist(nivel1JSON);
+			
+			List<Clase> clase = em.createNamedQuery("Clase.findId", Clase.class).setParameter("id", postNivel1JSON.getNivel1JSON().getClase()).getResultList();
+			if(clase.size() != 0){
+				Nivel1 nivel1 = new Nivel1();
+				nivel1.setCorrecta(postNivel1JSON.getNivel1JSON().getCorrecta());
+				nivel1.setPalabra1(postNivel1JSON.getNivel1JSON().getPalabra1());
+				nivel1.setPalabra2(postNivel1JSON.getNivel1JSON().getPalabra2());
+				nivel1.setClase(clase.get(0));
+				em.persist(nivel1);
+			}
 			response = Response.ok().entity("Ejercicio subido correctamente").build();
 		}
 		else{

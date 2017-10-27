@@ -33,6 +33,18 @@ public class Nivel1 implements Serializable {
 
 	public Nivel1() {
 	}
+	
+	
+
+	public Nivel1(int correcta, String palabra1, String palabra2, Clase clase) {
+		super();
+		this.correcta = correcta;
+		this.palabra1 = palabra1;
+		this.palabra2 = palabra2;
+		this.clase = clase;
+	}
+
+
 
 	public int getIdNivel1() {
 		return this.idNivel1;
