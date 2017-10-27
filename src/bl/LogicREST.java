@@ -93,6 +93,13 @@ public class LogicREST {
 	public Response loginUser(@QueryParam("nickname") String login, @QueryParam("password") String password ){
 		System.out.println("loginUser: "+hsr.getRemoteAddr());
 		Response response = null;
+		Alumno alumno = em.createNamedQuery("Alumno.findbyNickPass", Alumno.class).setParameter("nickname", login).setParameter("password", password).getSingleResult();
+		if(alumno != null){
+			response=Response.ok().entity("0").build();
+		}
+		else{
+			response=Response.ok().entity("1").build();
+		}
 		return response;
 	}
 
@@ -130,7 +137,7 @@ public class LogicREST {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)	
 	@Path("/postNivel2")
-	public Response postNivel2(Nivel2JSON nivel2JSON){
+	public Response postNivel2(PostNivel2JSON postNivel2JSON){
 		
 		//TO-DO. Añadir servicio para subir audio que devuelva URL y poder usarlo aquí
 		return Response.ok().entity("Ejercicio subido correctamente").build();
