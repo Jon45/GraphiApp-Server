@@ -16,17 +16,21 @@ public class Nivel1JSON {
 
 	@XmlElement
 	private String palabra2;
+	
+	@XmlElement
+	private int clase;
     
     public Nivel1JSON() {
 		super();
 	}
     
-    public Nivel1JSON(int idNivel1, int correcta, String palabra1, String palabra2) {
+    public Nivel1JSON(int idNivel1, int correcta, String palabra1, String palabra2, int clase) {
 		super();
 		this.idNivel1 = idNivel1;
 		this.correcta = correcta;
 		this.palabra1 = palabra1;
 		this.palabra2 = palabra2;
+		this.clase = clase;
 	}
 
 	public int getIdNivel1() {
@@ -59,6 +63,14 @@ public class Nivel1JSON {
 
 	public void setPalabra2(String palabra2) {
 		this.palabra2 = palabra2;
+	}
+
+	public int getClase() {
+		return clase;
+	}
+
+	public void setClase(int clase) {
+		this.clase = clase;
 	}
 
 }

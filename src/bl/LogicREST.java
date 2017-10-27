@@ -175,10 +175,10 @@ public class LogicREST {
 			}
 				for(int i=0;i<Nivel1List.size();i++) {
 				Nivel1 n=Nivel1List.get(i);
-				Nivel1JSON lJSON=new Nivel1JSON(n.getIdNivel1(),n.getCorrecta(),n.getPalabra1(),n.getPalabra2());
+				Nivel1JSON lJSON=new Nivel1JSON(n.getIdNivel1(),n.getCorrecta(),n.getPalabra1(),n.getPalabra2(),n.getClase().getIdClase());
 				Nivel1JSONList.add(lJSON);
 			}
-				niveles1JSON.setListaNivel1JSON(Nivel1JSONList);	
+				niveles1JSON.setListaNivel1JSON(Nivel1JSONList);
 		}
 		
 		return niveles1JSON;
@@ -210,7 +210,7 @@ public class LogicREST {
 			}
 				for(int i=0;i<Nivel2List.size();i++) {
 				Nivel2 n=Nivel2List.get(i);
-				Nivel2JSON lJSON=new Nivel2JSON(n.getIdNivel2(),n.getAudio(),n.getPalabra(),n.getTildada());
+				Nivel2JSON lJSON=new Nivel2JSON(n.getIdNivel2(),n.getAudio(),n.getPalabra(),n.getTildada(),n.getClase().getIdClase());
 				Nivel2JSONList.add(lJSON);
 			}
 				niveles2JSON.setListaNivel2JSON(Nivel2JSONList);	

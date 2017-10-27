@@ -17,16 +17,20 @@ public class Nivel2JSON {
 	@XmlElement
 	private int tildada;
 	
+	@XmlElement
+	private int clase;
+	
 	public Nivel2JSON() {
 		super();
 	}
 	
-	public Nivel2JSON(int idNivel2, String audio, String palabra, int tildada) {
+	public Nivel2JSON(int idNivel2, String audio, String palabra, int tildada,int clase) {
 		super();
 		this.idNivel2 = idNivel2;
 		this.audio = audio;
 		this.palabra = palabra;
 		this.tildada = tildada;
+		this.clase = clase;
 	}
 
 	public int getIdNivel2() {
@@ -59,6 +63,14 @@ public class Nivel2JSON {
 
 	public void setTildada(int tildada) {
 		this.tildada = tildada;
+	}
+
+	public int getClase() {
+		return clase;
+	}
+
+	public void setClase(int clase) {
+		this.clase = clase;
 	}
 
 }
