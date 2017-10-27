@@ -76,9 +76,14 @@ public class LogicREST {
 		}
 		
 		//Persist to DataBase
-		em.persist(alumnoJSON);
+		Alumno alumno = new Alumno();
+		alumno.setNombre(alumnoJSON.getNombre());
+		alumno.setApellidos(alumnoJSON.getApellidos());
+		alumno.setNickname(alumnoJSON.getNickname());
+		alumno.setPassword(alumnoJSON.getPassword());
+		em.persist(alumno);
 		
-		response = Response.ok().entity("El estudiante se ha registrado correctamente").build();
+		response = Response.ok().entity("El estudiante se ha registrado correctamente. Su login es: " + alumno.getNickname()).build();
 		return response;
 	}
 	
