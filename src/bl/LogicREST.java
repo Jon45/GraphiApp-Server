@@ -93,8 +93,8 @@ public class LogicREST {
 	public Response loginUser(@QueryParam("nickname") String login, @QueryParam("password") String password ){
 		System.out.println("loginUser: "+hsr.getRemoteAddr());
 		Response response = null;
-		Alumno alumno = em.createNamedQuery("Alumno.findbyNickPass", Alumno.class).setParameter("nickname", login).setParameter("password", password).getSingleResult();
-		if(alumno != null){
+		List<Alumno> alumno = em.createNamedQuery("Alumno.findbyNickPass", Alumno.class).setParameter("nickname", login).setParameter("password", password).getResultList();
+		if(alumno.size() != 0){
 			response=Response.ok().entity("0").build();
 		}
 		else{
