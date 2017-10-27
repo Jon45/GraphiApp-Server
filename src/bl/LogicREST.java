@@ -139,8 +139,29 @@ public class LogicREST {
 	@Path("/postNivel2")
 	public Response postNivel2(PostNivel2JSON postNivel2JSON){
 		
+		System.out.println("postNivel2: "+hsr.getRemoteAddr());
+		Response response = null;
 		//TO-DO. Añadir servicio para subir audio que devuelva URL y poder usarlo aquí
-		return Response.ok().entity("Ejercicio subido correctamente").build();
+		String login = postNivel2JSON.getLogin();
+		List<Docente> docente = em.createNamedQuery("Docente.findNickname",Docente.class).setParameter("nickname", login).getResultList();
+		if(docente.size() != 0){
+			List<Clase> clase = em.createNamedQuery("Clase.findId",Clase.class).setParameter("id", postNivel2JSON.getNivel2JSON().getClase()).getResultList();
+			if(clase.size() != 0){
+				
+				Nivel2 nivel2 = new Nivel2();
+				nivel2.setAudio(postNivel2JSON.getUrl());
+				nivel2.setPalabra(postNivel2JSON.getNivel2JSON().getPalabra());
+				nivel2.setTildada(postNivel2JSON.getNivel2JSON().getTildada());
+				nivel2.setClase(clase.get(0));
+				em.persist(nivel2);
+				
+			}
+			response = Response.ok().entity("Ejercicio subido correctamente").build();
+		}
+		else{
+			response = Response.ok().entity("Error de acceso: no tiene permiso para subir ejercicios").build();
+		}
+		return response;
 		
 	}
 	
