@@ -13,7 +13,8 @@ import javax.persistence.*;
 @NamedQuery(name="Alumno.findAll", query="SELECT a FROM Alumno a"),
 @NamedQuery(name="Alumno.findId", query="SELECT a FROM Alumno a WHERE a.idAlumno= :idAlumno"),
 @NamedQuery(name="Alumno.findNick", query="SELECT a FROM Alumno a WHERE a.nickname= :nickname"),
-@NamedQuery(name="Alumno.findLogin",query="SELECT a FROM Alumno a WHERE a.nickname LIKE :nickname")
+@NamedQuery(name="Alumno.findLogin",query="SELECT a FROM Alumno a WHERE a.nickname LIKE :nickname"),
+@NamedQuery(name="Alumno.findbyNickPass", query="SELECT a FROM Alumno a WHERE a.nickname = :nickname AND a.password= :password")
 })
 public class Alumno implements Serializable {
 	private static final long serialVersionUID = 1L;

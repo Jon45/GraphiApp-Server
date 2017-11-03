@@ -76,9 +76,14 @@ public class LogicREST {
 		}
 		
 		//Persist to DataBase
-		em.persist(alumnoJSON);
+		Alumno alumno = new Alumno();
+		alumno.setNombre(alumnoJSON.getNombre());
+		alumno.setApellidos(alumnoJSON.getApellidos());
+		alumno.setNickname(alumnoJSON.getNickname());
+		alumno.setPassword(alumnoJSON.getPassword());
+		em.persist(alumno);
 		
-		response = Response.ok().entity("El estudiante se ha registrado correctamente").build();
+		response = Response.ok().entity("El estudiante se ha registrado correctamente. Su login es: " + alumno.getNickname()).build();
 		return response;
 	}
 	
@@ -88,6 +93,13 @@ public class LogicREST {
 	public Response loginUser(@QueryParam("nickname") String login, @QueryParam("password") String password ){
 		System.out.println("loginUser: "+hsr.getRemoteAddr());
 		Response response = null;
+		List<Alumno> alumno = em.createNamedQuery("Alumno.findbyNickPass", Alumno.class).setParameter("nickname", login).setParameter("password", password).getResultList();
+		if(alumno.size() != 0){
+			response=Response.ok().entity("0").build();
+		}
+		else{
+			response=Response.ok().entity("1").build();
+		}
 		return response;
 	}
 
@@ -100,7 +112,7 @@ public class LogicREST {
 		System.out.println("postNivel1: "+hsr.getRemoteAddr());
 		Response response = null;
 		String login = postNivel1JSON.getLogin();
-		Docente docente = (Docente)em.createNamedQuery("Docente.findNickname").setParameter("nickname", login).getSingleResult();
+		List<Docente> docente = em.createNamedQuery("Docente.findNickname",Docente.class).setParameter("nickname", login).getResultList();
 		if(docente != null){
 			
 			List<Clase> clase = em.createNamedQuery("Clase.findId", Clase.class).setParameter("id", postNivel1JSON.getNivel1JSON().getClase()).getResultList();
@@ -125,10 +137,31 @@ public class LogicREST {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)	
 	@Path("/postNivel2")
-	public Response postNivel2(Nivel2JSON nivel2JSON){
+	public Response postNivel2(PostNivel2JSON postNivel2JSON){
 		
+		System.out.println("postNivel2: "+hsr.getRemoteAddr());
+		Response response = null;
 		//TO-DO. Añadir servicio para subir audio que devuelva URL y poder usarlo aquí
-		return Response.ok().entity("Ejercicio subido correctamente").build();
+		String login = postNivel2JSON.getLogin();
+		List<Docente> docente = em.createNamedQuery("Docente.findNickname",Docente.class).setParameter("nickname", login).getResultList();
+		if(docente.size() != 0){
+			List<Clase> clase = em.createNamedQuery("Clase.findId",Clase.class).setParameter("id", postNivel2JSON.getNivel2JSON().getClase()).getResultList();
+			if(clase.size() != 0){
+				
+				Nivel2 nivel2 = new Nivel2();
+				nivel2.setAudio(postNivel2JSON.getUrl());
+				nivel2.setPalabra(postNivel2JSON.getNivel2JSON().getPalabra());
+				nivel2.setTildada(postNivel2JSON.getNivel2JSON().getTildada());
+				nivel2.setClase(clase.get(0));
+				em.persist(nivel2);
+				
+			}
+			response = Response.ok().entity("Ejercicio subido correctamente").build();
+		}
+		else{
+			response = Response.ok().entity("Error de acceso: no tiene permiso para subir ejercicios").build();
+		}
+		return response;
 		
 	}
 	
