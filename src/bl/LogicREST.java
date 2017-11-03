@@ -213,7 +213,7 @@ public class LogicREST {
 			{
 				Nivel1List = (List <Nivel1>)em.createNamedQuery("Nivel1.findAll",Nivel1.class).getResultList();
 				Collections.shuffle(Nivel1List);
-				Nivel1List = Nivel1List.subList(0, 9);
+				Nivel1List = Nivel1List.subList(0, 10);
 			}
 				for(int i=0;i<Nivel1List.size();i++) {
 				Nivel1 n=Nivel1List.get(i);
@@ -248,7 +248,7 @@ public class LogicREST {
 			{
 				Nivel2List = (List <Nivel2>)em.createNamedQuery("Nivel2.findAll",Nivel2.class).getResultList();
 				Collections.shuffle(Nivel2List);
-				Nivel2List = Nivel2List.subList(0, 9);
+				Nivel2List = Nivel2List.subList(0, 10);
 			}
 				for(int i=0;i<Nivel2List.size();i++) {
 				Nivel2 n=Nivel2List.get(i);
