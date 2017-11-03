@@ -213,7 +213,7 @@ public class LogicREST {
 			{
 				Nivel1List = (List <Nivel1>)em.createNamedQuery("Nivel1.findAll",Nivel1.class).getResultList();
 				Collections.shuffle(Nivel1List);
-				Nivel1List = Nivel1List.subList(0, 9);
+				Nivel1List = Nivel1List.subList(0, 10);
 			}
 				for(int i=0;i<Nivel1List.size();i++) {
 				Nivel1 n=Nivel1List.get(i);
@@ -248,7 +248,7 @@ public class LogicREST {
 			{
 				Nivel2List = (List <Nivel2>)em.createNamedQuery("Nivel2.findAll",Nivel2.class).getResultList();
 				Collections.shuffle(Nivel2List);
-				Nivel2List = Nivel2List.subList(0, 9);
+				Nivel2List = Nivel2List.subList(0, 10);
 			}
 				for(int i=0;i<Nivel2List.size();i++) {
 				Nivel2 n=Nivel2List.get(i);
@@ -269,7 +269,7 @@ public class LogicREST {
 	{
 		System.out.println("postResult: "+hsr.getRemoteAddr());
 		
-		Resultado nuevoResultado = new Resultado();
+		Resultado nuevoResultado;
 		
 		List <Alumno> alumnoDB = em.createNamedQuery("Alumno.findId",Alumno.class).setParameter("idAlumno", resultado.getAlumno()).getResultList();
 		if (alumnoDB.size()==1)
@@ -279,7 +279,18 @@ public class LogicREST {
 			if (claseDB.size()==1)
 			{
 				Clase claseBean = claseDB.get(0);
+				List <Resultado> resultadoDB = em.createNamedQuery("Resultado.findByAlumnoFecha",Resultado.class).setParameter("alumno", resultado.getAlumno()).setParameter("fecha", resultado.getFecha()).getResultList();
 				
+				if (resultadoDB.size()!=0)
+				{
+					nuevoResultado=resultadoDB.get(0);
+				}
+				
+				else
+				{
+					nuevoResultado = new Resultado();
+				}
+
 				nuevoResultado.setAlumno(alumnoBean);
 				nuevoResultado.setClase(claseBean);
 				nuevoResultado.setFecha(resultado.getFecha());
@@ -290,13 +301,7 @@ public class LogicREST {
 				nuevoResultado.setPuntosNivel5(resultado.getPuntosNivel5());
 				nuevoResultado.setPuntosNivel8(resultado.getPuntosNivel8());
 				
-				List <Resultado> resultadoDB = em.createNamedQuery("Resultado.findByAlumnoFecha",Resultado.class).setParameter("alumno", resultado.getAlumno()).setParameter("fecha", resultado.getFecha()).getResultList();
-				if (resultadoDB.size()!=0)
-				{
-					nuevoResultado.setIdResultado(resultadoDB.get(0).getIdResultado());
-				}	
-				
-				em.merge(nuevoResultado);
+				em.persist(nuevoResultado);
 				
 				return Response.ok().entity("Resultados actualizados correctamente").build();
 			}
