@@ -236,7 +236,7 @@ public class LogicREST {
 	{
 		System.out.println("postResult: "+hsr.getRemoteAddr());
 		
-		Resultado nuevoResultado = new Resultado();
+		Resultado nuevoResultado;
 		
 		List <Alumno> alumnoDB = em.createNamedQuery("Alumno.findId",Alumno.class).setParameter("idAlumno", resultado.getAlumno()).getResultList();
 		if (alumnoDB.size()==1)
@@ -246,7 +246,18 @@ public class LogicREST {
 			if (claseDB.size()==1)
 			{
 				Clase claseBean = claseDB.get(0);
+				List <Resultado> resultadoDB = em.createNamedQuery("Resultado.findByAlumnoFecha",Resultado.class).setParameter("alumno", resultado.getAlumno()).setParameter("fecha", resultado.getFecha()).getResultList();
 				
+				if (resultadoDB.size()!=0)
+				{
+					nuevoResultado=resultadoDB.get(0);
+				}
+				
+				else
+				{
+					nuevoResultado = new Resultado();
+				}
+
 				nuevoResultado.setAlumno(alumnoBean);
 				nuevoResultado.setClase(claseBean);
 				nuevoResultado.setFecha(resultado.getFecha());
@@ -257,13 +268,7 @@ public class LogicREST {
 				nuevoResultado.setPuntosNivel5(resultado.getPuntosNivel5());
 				nuevoResultado.setPuntosNivel8(resultado.getPuntosNivel8());
 				
-				List <Resultado> resultadoDB = em.createNamedQuery("Resultado.findByAlumnoFecha",Resultado.class).setParameter("alumno", resultado.getAlumno()).setParameter("fecha", resultado.getFecha()).getResultList();
-				if (resultadoDB.size()!=0)
-				{
-					nuevoResultado.setIdResultado(resultadoDB.get(0).getIdResultado());
-				}	
-				
-				em.merge(nuevoResultado);
+				em.persist(nuevoResultado);
 				
 				return Response.ok().entity("Resultados actualizados correctamente").build();
 			}
