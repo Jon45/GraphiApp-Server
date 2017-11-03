@@ -11,7 +11,8 @@ import javax.persistence.*;
 @Entity
 @NamedQueries({
 @NamedQuery(name="Docente.findAll", query="SELECT d FROM Docente d"),
-@NamedQuery(name="Docente.findNickname", query="SELECT d FROM Docente d WHERE d.nickname = :nickname")})
+@NamedQuery(name="Docente.findNickname", query="SELECT d FROM Docente d WHERE d.nickname = :nickname"),
+@NamedQuery(name="Docente.findByNicknamePass", query="SELECT d FROM Docente d WHERE d.nickname= :nickname AND d.password= :password")})
 public class Docente implements Serializable {
 	private static final long serialVersionUID = 1L;
 
