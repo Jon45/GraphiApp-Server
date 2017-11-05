@@ -38,7 +38,7 @@ public class LogicREST {
 	@PostConstruct
 	private void buildFolderTree() {
 		String contextName=hsr.getContextPath().substring(1);
-		String folderNames[]= {"audio"};
+		String folderNames[]= {"audio","img"};
 		
 		FileUtils.generateFolderTree(contextName, folderNames);
 	}
@@ -50,6 +50,7 @@ public class LogicREST {
 		System.out.println("uploadFile: "+hsr.getRemoteAddr());
 
 		Response httpResponse= FileUtils.uploadFile(input); //Recoger el fichero recibido como contenido multipart y escribirlo en la ubicación por defecto
+		
 		
 		return httpResponse;		
 	}
