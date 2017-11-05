@@ -96,15 +96,15 @@ public class LogicREST {
 		Response response = null;
 		List<Alumno> alumno = em.createNamedQuery("Alumno.findbyNickPass", Alumno.class).setParameter("nickname", login).setParameter("password", password).getResultList();
 		if(alumno.size() != 0){
-			response=Response.ok().entity("0").build();
+			response=Response.ok().entity("0-Alumno").build();
 		}
 		else{
 			List<Docente> docente= em.createNamedQuery("Docente.findByNicknamePass", Docente.class).setParameter("nickname", login).setParameter("password", password).getResultList();
 			if(docente.size() != 0){
-				response=Response.ok().entity("0").build();
+				response=Response.ok().entity("0-Docente").build();
 			}
 			else{
-				response=Response.ok().entity("1").build();
+				response=Response.ok().entity("1-Error").build();
 			}
 			
 		}
