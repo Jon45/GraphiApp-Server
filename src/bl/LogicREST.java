@@ -110,6 +110,36 @@ public class LogicREST {
 		}
 		return response;
 	}
+	
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_PLAIN)
+	@Path("/registerClass")
+	public Response registerClass(ClaseJSON claseJSON){
+		System.out.println("registerClass: "+hsr.getRemoteAddr());
+		Response response = null;
+		
+		List<Docente>docente=em.createNamedQuery("Docente.findNickname",Docente.class).setParameter("nickname", claseJSON.getLoginDocente()).getResultList();
+		if(docente.size() != 0){
+			Clase clase = new Clase();
+			Docente docenteClase = new Docente();
+			docenteClase.setNickname(claseJSON.getLoginDocente());
+			clase.setDocente(docenteClase);
+			clase.setFecha(claseJSON.getFecha());
+			clase.setTematica(claseJSON.getTematica());
+			
+			em.persist(clase);
+			List<Clase> listaClases = em.createNamedQuery("Clase.findFecha",Clase.class).setParameter("fecha", claseJSON.getFecha()).getResultList();
+			int id = listaClases.get(0).getIdClase();
+			
+			response = Response.ok().entity(id).build();
+		}
+		else{
+			response = Response.ok().entity("Error de acceso: No tienes permiso para añadir una nueva clase").build();
+		}
+		
+		return response;
+	}
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
