@@ -15,17 +15,17 @@ public class ClaseJSON {
 	private String tematica;
 	
 	@XmlElement
-	private int idDocente;
+	private String loginDocente;
 
 	public ClaseJSON(){
 		
 	}
-	public ClaseJSON(int idClase, int fecha, String tematica, int idDocente) {
+	public ClaseJSON(int idClase, int fecha, String tematica, String loginDocente) {
 		super();
 		this.idClase = idClase;
 		this.fecha = fecha;
 		this.tematica = tematica;
-		this.idDocente = idDocente;
+		this.loginDocente = loginDocente;
 	}
 	public int getIdClase() {
 		return idClase;
@@ -45,11 +45,11 @@ public class ClaseJSON {
 	public void setTematica(String tematica) {
 		this.tematica = tematica;
 	}
-	public int getIdDocente() {
-		return idDocente;
+	public String getLoginDocente() {
+		return loginDocente;
 	}
-	public void setIdDocente(int idDocente) {
-		this.idDocente = idDocente;
+	public void setLoginDocente(String loginDocente) {
+		this.loginDocente = loginDocente;
 	}
 	
 	
