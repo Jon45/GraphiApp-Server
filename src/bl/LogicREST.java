@@ -117,7 +117,7 @@ public class LogicREST {
 	@Path("/registerClass")
 	public Response registerClass(ClaseJSON claseJSON){
 		System.out.println("registerClass: "+hsr.getRemoteAddr());
-		Response response = null;
+		Response response = Response.ok().entity("Error en el servidor. No se ha ejecutado el código").build();
 		
 		List<Docente>docente=em.createNamedQuery("Docente.findNickname",Docente.class).setParameter("nickname", claseJSON.getLoginDocente()).getResultList();
 		if(docente.size() != 0){
@@ -127,10 +127,10 @@ public class LogicREST {
 			clase.setTematica(claseJSON.getTematica());
 			
 			em.persist(clase);
-			List<Clase> listaClases = em.createNamedQuery("Clase.findFecha",Clase.class).setParameter("fecha", claseJSON.getFecha()).getResultList();
-			int id = listaClases.get(0).getIdClase();
+			List<Integer> listaClases = em.createNamedQuery("Clase.findFecha",Integer.class).setParameter("fecha", claseJSON.getFecha()).getResultList();
+			int id = listaClases.get(0).intValue();
 			
-			response = Response.ok().entity(id).build();
+			response = Response.ok().entity(""+id+"").build();
 		}
 		else{
 			response = Response.ok().entity("Error de acceso: No tienes permiso para añadir una nueva clase").build();
