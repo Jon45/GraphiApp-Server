@@ -122,9 +122,7 @@ public class LogicREST {
 		List<Docente>docente=em.createNamedQuery("Docente.findNickname",Docente.class).setParameter("nickname", claseJSON.getLoginDocente()).getResultList();
 		if(docente.size() != 0){
 			Clase clase = new Clase();
-			Docente docenteClase = new Docente();
-			docenteClase.setNickname(claseJSON.getLoginDocente());
-			clase.setDocente(docenteClase);
+			clase.setDocente(docente.get(0));
 			clase.setFecha(claseJSON.getFecha());
 			clase.setTematica(claseJSON.getTematica());
 			
