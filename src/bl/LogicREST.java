@@ -151,7 +151,7 @@ public class LogicREST {
 		List<Docente> docente = em.createNamedQuery("Docente.findNickname",Docente.class).setParameter("nickname", login).getResultList();
 		if(docente != null){
 			
-			List<Clase> clase = em.createNamedQuery("Clase.findId", Clase.class).setParameter("id", postNivel1JSON.getNivel1JSON().getClase()).getResultList();
+			List<Clase> clase = em.createNamedQuery("Clase.findId", Clase.class).setParameter("idClase", postNivel1JSON.getNivel1JSON().getClase()).getResultList();
 			if(clase.size() != 0){
 				Nivel1 nivel1 = new Nivel1();
 				nivel1.setCorrecta(postNivel1JSON.getNivel1JSON().getCorrecta());
