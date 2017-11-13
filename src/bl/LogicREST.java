@@ -128,7 +128,7 @@ public class LogicREST {
 			
 			em.persist(clase);
 			List<Integer> listaClases = em.createNamedQuery("Clase.findFecha",Integer.class).setParameter("fecha", claseJSON.getFecha()).getResultList();
-			int id = listaClases.get(0).intValue();
+			int id = listaClases.get(listaClases.size()-1).intValue();
 			
 			response = Response.ok().entity(""+id+"").build();
 		}
@@ -181,7 +181,7 @@ public class LogicREST {
 		String login = postNivel2JSON.getLogin();
 		List<Docente> docente = em.createNamedQuery("Docente.findNickname",Docente.class).setParameter("nickname", login).getResultList();
 		if(docente.size() != 0){
-			List<Clase> clase = em.createNamedQuery("Clase.findId",Clase.class).setParameter("id", postNivel2JSON.getNivel2JSON().getClase()).getResultList();
+			List<Clase> clase = em.createNamedQuery("Clase.findId",Clase.class).setParameter("idClase", postNivel2JSON.getNivel2JSON().getClase()).getResultList();
 			if(clase.size() != 0){
 				
 				Nivel2 nivel2 = new Nivel2();
