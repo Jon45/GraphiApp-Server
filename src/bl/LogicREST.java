@@ -88,6 +88,39 @@ public class LogicREST {
 		return response;
 	}
 	
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_PLAIN)	
+	@Path("/registerTeacher")
+	public Response registerTeacher(DocenteJSON docenteJSON){
+		System.out.println("registerTeacher: "+hsr.getRemoteAddr());
+		Response response = null;
+		
+		//Generate login
+		String loginPref = docenteJSON.getNombre().substring(0, 1).toLowerCase() + docenteJSON.getApellidos().substring(0,1).toLowerCase();
+		List<Docente> lista = (List<Docente>)em.createNamedQuery("Docente.findLogin", Docente.class).setParameter("nickname",loginPref+"%").getResultList();
+		if(lista.size()>= 10){
+			loginPref = loginPref + "0" + lista.size();
+			docenteJSON.setNickname(loginPref);
+		}
+		else{
+			loginPref = loginPref + "00" + lista.size();
+			docenteJSON.setNickname(loginPref);
+		}
+		
+		//Persist to Database
+		Docente docente = new Docente();
+		docente.setApellidos(docenteJSON.getApellidos());
+		docente.setNickname(docenteJSON.getNickname());
+		docente.setNombre(docenteJSON.getNombre());
+		docente.setPassword(docenteJSON.getPassword());
+		em.persist(docente);
+		
+		response = Response.ok().entity("El docente se ha registrado correctamente. Su login es " + docente.getNickname()).build();
+		
+		return response;
+	}
+	
 	@GET
 	@Produces(MediaType.TEXT_PLAIN)	
 	@Path("/loginUser")
