@@ -171,6 +171,28 @@ public class LogicREST {
 		
 		return response;
 	}
+	
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/ClasesJSON")
+	public ClasesJSON getClass(@QueryParam("nickname") String nickname){
+		System.out.println("getClass: "+hsr.getRemoteAddr());
+		List<Docente> ldoc = (List<Docente>)em.createNamedQuery("Docente.findNickname", Docente.class).setParameter("nickname", nickname).getResultList();
+		List<Clase> lClases = (List<Clase>)em.createNamedQuery("Clase.findByTeacher",Clase.class).setParameter("docente", ldoc.get(0)).getResultList();
+		
+		List<ClaseJSON> lClasesJSON = new ArrayList<ClaseJSON>();
+		
+		for(int i=0; i<lClases.size();i++){
+			Clase c = lClases.get(i);
+			ClaseJSON cJSON = new ClaseJSON(c.getIdClase(),c.getFecha(),c.getTematica(),c.getDocente().getNickname());
+			lClasesJSON.add(cJSON);
+		}
+		
+		ClasesJSON ccJSON = new ClasesJSON(lClasesJSON);
+		
+		return ccJSON;
+		
+	}
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -240,22 +262,22 @@ public class LogicREST {
 	public ResultadosJSON getResults(@QueryParam("nickname") String nickname, @QueryParam("fecha") int fecha){
 		System.out.println("getResults: "+hsr.getRemoteAddr());
 		ResultadosJSON resultadosJSON = new ResultadosJSON();
-		
+		List<ResultadoJSON> listaResultadosJSON = new ArrayList<ResultadoJSON>();
 		Docente docente = (Docente)em.createNamedQuery("Docente.findNickname").setParameter("nickname", nickname).getSingleResult();
 		if(docente != null){
 			
-			List<ResultadoJSON> listaResultadoJSON = new ArrayList<ResultadoJSON>();
+			
 			List<Resultado> listaResultados = (List<Resultado>)em.createNamedQuery("Resultado.findByFecha",Resultado.class).setParameter("fecha", fecha).getResultList();
 			
 			for(int i = 0; i<listaResultados.size(); i++){
 				Resultado r = listaResultados.get(i);
 				ResultadoJSON rJSON = new ResultadoJSON(r.getIdResultado(), r.getPuntosNivel1(), r.getPuntosNivel2(),r.getPuntosNivel3(), r.getPuntosNivel4(), r.getPuntosNivel5(), r.getPuntosNivel8(), r.getFecha(), r.getAlumno().getIdAlumno(), r.getClase().getIdClase());
-				listaResultadoJSON.add(rJSON);
+				listaResultadosJSON.add(rJSON);
 			}
 			
 		}
 		
-		
+		resultadosJSON.setListaResultadoJSON(listaResultadosJSON);
 		return resultadosJSON;
 
 		}	
