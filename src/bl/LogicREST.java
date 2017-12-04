@@ -174,7 +174,7 @@ public class LogicREST {
 	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/ClasesJSON")
+	@Path("/getClass")
 	public ClasesJSON getClass(@QueryParam("nickname") String nickname){
 		System.out.println("getClass: "+hsr.getRemoteAddr());
 		List<Docente> ldoc = (List<Docente>)em.createNamedQuery("Docente.findNickname", Docente.class).setParameter("nickname", nickname).getResultList();
