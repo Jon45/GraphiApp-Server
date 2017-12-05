@@ -362,11 +362,11 @@ public class LogicREST {
 		
 		Resultado nuevoResultado;
 		
-		List <Alumno> alumnoDB = em.createNamedQuery("Alumno.findId",Alumno.class).setParameter("idAlumno", resultado.getAlumno()).getResultList();
+		List <Alumno> alumnoDB = em.createNamedQuery("Alumno.findNick",Alumno.class).setParameter("nickname", resultado.getAlumno()).getResultList();
 		if (alumnoDB.size()==1)
 		{
 			Alumno alumnoBean = alumnoDB.get(0);
-			List <Clase> claseDB = em.createNamedQuery("Clase.findId",Clase.class).setParameter("idClase", resultado.getClase()).getResultList();
+			List <Clase> claseDB = em.createNamedQuery("Clase.findFecha",Clase.class).setParameter("fecha", resultado.getFecha()).getResultList();
 			if (claseDB.size()==1)
 			{
 				Clase claseBean = claseDB.get(0);
