@@ -31,16 +31,13 @@ public class ResultadoJSON {
 	private int fecha;
 	
 	@XmlElement
-	private int alumno;
-	
-	@XmlElement
-	private int clase;
+	private String alumno;
 	
 	public ResultadoJSON(){
 		
 	}
 	
-	public ResultadoJSON(int idResultado, float puntosN1,float puntosN2, float puntosN3, float puntosN4, float puntosN5, float puntosN8, int fecha, int alumno, int clase){
+	public ResultadoJSON(int idResultado, float puntosN1,float puntosN2, float puntosN3, float puntosN4, float puntosN5, float puntosN8, int fecha, String alumno){
 		this.idResultado=idResultado;
 		this.puntosNivel1=puntosN1;
 		this.puntosNivel2=puntosN2;
@@ -50,7 +47,6 @@ public class ResultadoJSON {
 		this.puntosNivel8=puntosN8;
 		this.fecha=fecha;
 		this.alumno=alumno;
-		this.clase=clase;
 	}
 	
 	//Getters y Setters
@@ -119,26 +115,11 @@ public class ResultadoJSON {
 		this.fecha = fecha;
 	}
 
-	public int getAlumno() {
+	public String getAlumno() {
 		return alumno;
 	}
 
-	public void setAlumno(int alumno) {
+	public void setAlumno(String alumno) {
 		this.alumno = alumno;
 	}
-
-	public int getClase() {
-		return clase;
-	}
-
-	public void setClase(int clase) {
-		this.clase = clase;
-	}
-	
-	
-	
-	
-	
-	
-
 }
