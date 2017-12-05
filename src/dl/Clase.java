@@ -13,6 +13,7 @@ import javax.persistence.*;
 @NamedQuery(name="Clase.findAll", query="SELECT c FROM Clase c"),
 @NamedQuery(name="Clase.findId", query="SELECT c FROM Clase c WHERE c.idClase= :idClase"),
 @NamedQuery(name="Clase.findFecha", query="SELECT c.idClase FROM Clase c WHERE c.fecha= :fecha"),
+@NamedQuery(name="Clase.findByFecha", query="SELECT c FROM Clase c WHERE c.fecha= :fecha"),
 @NamedQuery(name="Clase.findByTeacher", query="SELECT c FROM Clase c WHERE c.docente= :docente")
 })
 public class Clase implements Serializable {
