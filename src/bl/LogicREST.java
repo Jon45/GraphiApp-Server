@@ -259,19 +259,19 @@ public class LogicREST {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/getResults")
-	public ResultadosJSON getResults(@QueryParam("nickname") String nickname, @QueryParam("fecha") int fecha){
+	public ResultadosJSON getResults(@QueryParam("nickname") String nickname, @QueryParam("tematica") String tematica){
 		System.out.println("getResults: "+hsr.getRemoteAddr());
 		ResultadosJSON resultadosJSON = new ResultadosJSON();
 		List<ResultadoJSON> listaResultadosJSON = new ArrayList<ResultadoJSON>();
 		Docente docente = (Docente)em.createNamedQuery("Docente.findNickname").setParameter("nickname", nickname).getSingleResult();
 		if(docente != null){
-			
-			
-			List<Resultado> listaResultados = (List<Resultado>)em.createNamedQuery("Resultado.findByFecha",Resultado.class).setParameter("fecha", fecha).getResultList();
+			List<Clase>clase = em.createNamedQuery("Clase.findByTematica",Clase.class).setParameter("tematica", tematica).getResultList();
+			int fechaClase = clase.get(0).getFecha();	
+			List<Resultado> listaResultados = (List<Resultado>)em.createNamedQuery("Resultado.findByFecha",Resultado.class).setParameter("fecha", fechaClase).getResultList();
 			
 			for(int i = 0; i<listaResultados.size(); i++){
 				Resultado r = listaResultados.get(i);
-				ResultadoJSON rJSON = new ResultadoJSON(r.getIdResultado(), r.getPuntosNivel1(), r.getPuntosNivel2(),r.getPuntosNivel3(), r.getPuntosNivel4(), r.getPuntosNivel5(), r.getPuntosNivel8(), r.getFecha(), r.getAlumno().getIdAlumno(), r.getClase().getIdClase());
+				ResultadoJSON rJSON = new ResultadoJSON(r.getIdResultado(), r.getPuntosNivel1(), r.getPuntosNivel2(),r.getPuntosNivel3(), r.getPuntosNivel4(), r.getPuntosNivel5(), r.getPuntosNivel8(), r.getFecha(), r.getAlumno().getNickname());
 				listaResultadosJSON.add(rJSON);
 			}
 			
